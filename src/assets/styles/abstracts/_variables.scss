@@ -1,0 +1,107 @@
+:root {
+  // Colors
+  --color-primary: #605dec;
+  --color-primary-hover: #344293;
+  --color-secondary: #f9f9fb;
+  --color-secondary-hover: #f9f9fb;
+  --color-text-primary: #1a1a1a;
+  --color-text-secondary: #808080;
+  --color-border: #e4e4ef;
+  --color-background: #ffffff;
+  --color-white: #ffffff;
+  --color-gray-light: #f8f9fa;
+
+  // Status Colors
+  --color-status-active: #ededfe;
+  --color-status-active-text: #605dec;
+  --color-status-approved: #ebf6eb;
+  --color-status-approved-text: #31aa27;
+  --color-status-pending: #fff4e4;
+  --color-status-pending-text: #e99518;
+  --color-status-inactive: #fff0f0;
+  --color-status-inactive-text: #f93232;
+
+  // Spacing
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+
+  // Other
+  --border-radius: 8px;
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --max-width: 1200px;
+}
+
+// SCSS variables for utility classes
+$primary: var(--color-primary);
+$text-primary: var(--color-text-primary);
+$text-secondary: var(--color-text-secondary);
+$border: var(--color-border);
+$background: var(--color-background);
+
+// Colors
+$colors: (
+  "primary": #605dec,
+  "primary-hover": #344293,
+  "secondary": #f9f9fb,
+  "secondary-hover": #f9f9fb,
+  "text-primary": #1a1a1a,
+  "text-secondary": #808080,
+  "gray-light": #f8f9fa,
+  "gray-medium": #e9ecef,
+  "border": #e4e4ef,
+  "background": #ffffff,
+  "white": #ffffff,
+  "status-active": #ededfe,
+  "status-active-text": #605dec,
+  "status-approved": #ebf6eb,
+  "status-approved-text": #31aa27,
+  "status-pending": #fff4e4,
+  "status-pending-text": #e99518,
+  "status-inactive": #fff0f0,
+  "status-inactive-text": #f93232,
+);
+
+// Spacing
+$spacing: (
+  0: 0,
+  1: 4px,
+  2: 8px,
+  3: 12px,
+  4: 16px,
+  5: 20px,
+  6: 24px,
+  8: 32px,
+  10: 40px,
+);
+
+// Breakpoints
+$breakpoints: (
+  "mobile": 768px,
+  "tablet": 1024px,
+  "desktop": 1200px,
+);
+
+// Typography
+$font-family:
+  "Inter",
+  -apple-system,
+  sans-serif;
+$font-sizes: (
+  "xs": 12px,
+  "sm": 14px,
+  "base": 16px,
+  "lg": 18px,
+  "xl": 20px,
+  "xxl": 24px,
+);
+
+// Other
+$border-radius: 8px;
+$transition-default: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+$max-width: 1200px;
