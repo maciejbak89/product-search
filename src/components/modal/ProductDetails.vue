@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import type { Product } from "@/types/product";
-import StatusPill from "@/components/table/StatusPill.vue";
-import { formatPrice, getStatusFromQuantity } from "@/utils/helpers";
-import noImagePlaceholder from "@/assets/images/no-image-placeholder.jpg";
+import noImagePlaceholder from "@/assets/images/no-image-placeholder.png";
 
 interface Props {
   product: Product;
@@ -12,79 +10,76 @@ defineProps<Props>();
 </script>
 
 <template>
-  <div class="product-details">
+  <div class="product-details d-flex">
     <img
       :src="product.image || noImagePlaceholder"
       :alt="product.product"
-      class="product-details__image rounded-lg"
-      width="200"
-      height="150"
+      class="product-details__image"
+      @error="($event.target as HTMLImageElement).src = noImagePlaceholder"
     />
 
-    <div class="product-details__content p-4">
-      <div class="d-flex flex-column gap-2">
-        <h3 class="font-lg text-primary">{{ product.product }}</h3>
-        <div class="d-flex align-center gap-3">
-          <StatusPill :status="getStatusFromQuantity(product.quantity)" />
-          <p class="font-xl font-medium mb-0">
-            {{ formatPrice(product.total) }}
-          </p>
-        </div>
-      </div>
-
-      <dl class="details-list mt-4">
-        <div class="details-list__item">
-          <dt class="font-sm text-secondary">Product ID</dt>
-          <dd class="font-base text-primary">{{ product.id }}</dd>
-        </div>
-
-        <div class="details-list__item">
-          <dt class="font-sm text-secondary">Serial Number</dt>
-          <dd class="font-base text-primary">{{ product.serial }}</dd>
-        </div>
-
-        <div class="details-list__item">
-          <dt class="font-sm text-secondary">Quantity</dt>
-          <dd class="font-base text-primary">{{ product.quantity }}</dd>
-        </div>
-      </dl>
+    <div class="product-details__description text-primary">
+      <h3 class="font-xs mb-2">Key Features:</h3>
+      <ul class="font-xs pl-4 mb-4">
+        <li
+          v-for="(feature, index) in product.description.features"
+          :key="index"
+        >
+          {{ feature }}
+        </li>
+      </ul>
+      <p class="font-xs">
+        {{ product.description.description }}
+      </p>
     </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
 .product-details {
+  display: flex;
+  gap: var(--space-4);
+
   &__image {
-    width: 100%;
-    height: 250px;
-    object-fit: cover;
-    background-color: var(--color-gray-light);
+    width: 50%;
+    height: auto;
+    object-fit: contain;
   }
 
-  @media (min-width: 768px) {
-    &__image {
-      width: 200px;
-      height: 150px;
+  &__description {
+    width: 50%;
+
+    h3 {
+      line-height: 24px;
     }
 
-    &__content {
-      display: flex;
-      gap: var(--space-4);
+    ul {
+      list-style-type: disc;
+
+      li {
+        line-height: 24px;
+      }
+    }
+
+    p {
+      line-height: 24px;
     }
   }
 }
 
-.details-list {
-  display: grid;
-  gap: var(--space-4);
+@media (max-width: 768px) {
+  .product-details {
+    flex-direction: column;
+    gap: var(--space-6);
 
-  &__item {
-    dt {
-      margin-bottom: var(--space-1);
+    &__image {
+      width: 100%;
+      max-width: 400px;
+      margin: 0 auto;
     }
 
-    dd {
-      margin: 0;
+    &__description {
+      width: 100%;
     }
   }
 }

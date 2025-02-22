@@ -122,11 +122,11 @@ withDefaults(defineProps<Props>(), {
   }
   &--name {
     width: 188px;
-    height: 24px;
+    height: 21px;
 
     &__mobile {
       width: 240px;
-      height: 21px;
+      height: 18px;
     }
   }
   &--serial {

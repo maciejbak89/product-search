@@ -5,6 +5,7 @@ import { sortProducts, filterProducts } from "@/utils/helpers";
 import { fetchProducts } from "@/services/api";
 
 export const useProductStore = defineStore("products", () => {
+  // State
   const products = ref<Product[]>([]);
   const isLoading = ref(false);
   const error = ref<string | null>(null);
@@ -12,18 +13,21 @@ export const useProductStore = defineStore("products", () => {
   const sortKey = ref<SortKey>("");
   const sortDirection = ref<SortDirection>("desc");
   const selectedProduct = ref<Product | null>(null);
+  const dialogOpen = ref(false);
 
+  // Getters
   const filteredAndSortedProducts = computed(() => {
     const filtered = filterProducts(products.value, searchQuery.value);
     return sortProducts(filtered, sortKey.value, sortDirection.value);
   });
-
   const totalProducts = computed(() => products.value.length);
   const visibleProducts = computed(
     () => filteredAndSortedProducts.value.length,
   );
+  const isDialogOpen = computed(() => dialogOpen.value);
 
-  async function loadProducts() {
+  // Actions
+  const loadProducts = async () => {
     isLoading.value = true;
     error.value = null;
 
@@ -38,28 +42,28 @@ export const useProductStore = defineStore("products", () => {
     } finally {
       isLoading.value = false;
     }
-  }
+  };
 
-  function setSearchQuery(query: string) {
+  const setSearchQuery = (query: string) => {
     searchQuery.value = query;
-  }
+  };
 
-  function setSort(key: SortKey) {
+  const setSort = (key: SortKey) => {
     if (sortKey.value === key) {
       sortDirection.value = sortDirection.value === "asc" ? "desc" : "asc";
     } else {
       sortKey.value = key;
       sortDirection.value = "asc";
     }
-  }
+  };
 
-  function selectProduct(product: Product) {
+  const selectProduct = (product: Product) => {
     selectedProduct.value = product;
-  }
+  };
 
-  function clearSelectedProduct() {
+  const clearSelectedProduct = () => {
     selectedProduct.value = null;
-  }
+  };
 
   return {
     products,
@@ -72,6 +76,7 @@ export const useProductStore = defineStore("products", () => {
     filteredAndSortedProducts,
     totalProducts,
     visibleProducts,
+    isDialogOpen,
     loadProducts,
     setSearchQuery,
     setSort,

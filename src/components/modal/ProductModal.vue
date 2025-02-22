@@ -1,120 +1,19 @@
-<!-- <script setup lang="ts">
-import { onMounted, onUnmounted } from "vue";
-import { storeToRefs } from "pinia";
-import { useProductStore } from "@/stores/products";
-import ProductDetails from "./ProductDetails.vue";
-import Icon from "@/components/ui/Icon.vue";
-
-const store = useProductStore();
-const { selectedProduct } = storeToRefs(store);
-const { clearSelectedProduct } = store;
-
-function handleEscape(event: KeyboardEvent) {
-  if (event.key === "Escape") {
-    clearSelectedProduct();
-  }
-}
-
-onMounted(() => {
-  document.addEventListener("keydown", handleEscape);
-  document.body.style.overflow = "hidden";
-});
-
-onUnmounted(() => {
-  document.removeEventListener("keydown", handleEscape);
-  document.body.style.overflow = "";
-});
-</script>
-
-<template>
-  <div
-    class="modal-overlay"
-    role="dialog"
-    aria-modal="true"
-    aria-labelledby="modal-title"
-    @click="clearSelectedProduct"
-  >
-    <div class="modal" @click.stop>
-      <div class="modal__header">
-        <h2 id="modal-title" class="font-lg">Product Details</h2>
-        <button
-          class="modal__close"
-          @click="clearSelectedProduct"
-          aria-label="Close modal"
-        >
-          <Icon name="close" />
-        </button>
-      </div>
-
-      <ProductDetails v-if="selectedProduct" :product="selectedProduct" />
-    </div>
-  </div>
-</template>
-
-<style lang="scss" scoped>
-.modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 100;
-}
-
-.modal {
-  background: white;
-  width: 600px;
-  max-width: calc(100% - 32px);
-  border-radius: 8px;
-  max-height: calc(100vh - 32px);
-  overflow: auto;
-
-  &__header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 16px;
-    border-bottom: 1px solid var(--color-border);
-  }
-
-  &__close {
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: none;
-    background: transparent;
-    border-radius: 4px;
-    cursor: pointer;
-    color: var(--color-text-secondary);
-    transition: all 0.2s;
-
-    &:hover {
-      background: var(--color-gray-light);
-      color: var(--color-text-primary);
-    }
-  }
-}
-</style> -->
-
 <script setup lang="ts">
 import { onMounted, onUnmounted } from "vue";
 import { storeToRefs } from "pinia";
 import { useProductStore } from "@/stores/products";
-import ProductDetails from "./ProductDetails.vue";
+import ProductDetails from "@/components/modal/ProductDetails.vue";
 import Icon from "@/components/ui/Icon.vue";
 
 const store = useProductStore();
 const { selectedProduct } = storeToRefs(store);
 const { clearSelectedProduct } = store;
 
-function handleEscape(event: KeyboardEvent) {
+const handleEscape = (event: KeyboardEvent) => {
   if (event.key === "Escape") {
     clearSelectedProduct();
   }
-}
+};
 
 onMounted(() => {
   document.addEventListener("keydown", handleEscape);
@@ -135,7 +34,7 @@ onUnmounted(() => {
     aria-labelledby="modal-title"
     @click="clearSelectedProduct"
   >
-    <div class="modal" @click.stop>
+    <div class="modal p-10" @click.stop>
       <div class="modal__header">
         <h2 id="modal-title" class="font-lg">Product Details</h2>
         <button
@@ -160,7 +59,7 @@ onUnmounted(() => {
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.4);
   display: flex;
   align-items: center;
   justify-content: center;

@@ -6,7 +6,7 @@ const store = useProductStore();
 const props = defineProps<{ product: Product }>();
 const emit = defineEmits(["close"]);
 
-const placeholderImage = "/no-image-placeholder.jpg";
+const placeholderImage = "/no-image-placeholder.png";
 
 const closeModal = () => {
   store.clearSelectedProduct();
