@@ -9,7 +9,7 @@ export const useProductStore = defineStore("products", () => {
   const isLoading = ref(false);
   const error = ref<string | null>(null);
   const searchQuery = ref<string>("");
-  const sortKey = ref<SortKey>("total");
+  const sortKey = ref<SortKey>("");
   const sortDirection = ref<SortDirection>("desc");
   const selectedProduct = ref<Product | null>(null);
 
@@ -28,10 +28,13 @@ export const useProductStore = defineStore("products", () => {
     error.value = null;
 
     try {
-      products.value = await fetchProducts();
+      const response = await fetchProducts();
+      products.value = response;
+      return response;
     } catch (e) {
       error.value = "Failed to load products";
-      console.error(e);
+      console.error("Error fetching results: ", e);
+      throw new Error("Failed to load products");
     } finally {
       isLoading.value = false;
     }

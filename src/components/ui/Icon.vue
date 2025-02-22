@@ -1,28 +1,35 @@
 <script setup lang="ts">
+import { ref, onMounted } from "vue";
+
 interface Props {
   name: "settings" | "notifications" | "search" | "close" | "sort";
 }
 
-defineProps<Props>();
+const props = defineProps<Props>();
+
+const iconComponent = ref(null);
+
+onMounted(async () => {
+  try {
+    const module = await import(`@/assets/icons/${props.name}.svg`);
+    iconComponent.value = module.default;
+  } catch (error) {
+    console.error(`Failed to load icon: ${props.name}`, error);
+  }
+});
 </script>
 
 <template>
-  <span
-    class="d-inline-flex align-center justify-center icon"
-    :class="`icon--${name}`"
-  >
-    <!-- We can add SVG icons here based on the name prop -->
-  </span>
+  <component :is="iconComponent" v-if="iconComponent" class="icon" />
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .icon {
-  width: 20px;
-  height: 20px;
+  display: inline-block;
+  vertical-align: middle;
+}
 
-  &--search {
-    width: 16px;
-    height: 16px;
-  }
+.icon :deep(path) {
+  transition: stroke var(--transition);
 }
 </style>

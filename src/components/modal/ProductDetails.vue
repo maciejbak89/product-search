@@ -16,7 +16,7 @@ defineProps<Props>();
     <img
       :src="product.image || noImagePlaceholder"
       :alt="product.product"
-      class="product-details__image rounded"
+      class="product-details__image rounded-lg"
       width="200"
       height="150"
     />

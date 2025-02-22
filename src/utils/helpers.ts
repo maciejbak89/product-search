@@ -50,7 +50,8 @@ export const formatPrice = (price: number): string => {
 };
 
 export const getStatusFromQuantity = (quantity: number): Product["status"] => {
-  if (quantity > 100) return "active";
-  if (quantity > 50) return "pending";
-  return "inactive";
+  if (quantity > 100) return "high";
+  if (quantity > 50) return "medium";
+  if (quantity > 20) return "low";
+  return "unavailable";
 };

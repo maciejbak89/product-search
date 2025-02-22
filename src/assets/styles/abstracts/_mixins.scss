@@ -1,12 +1,12 @@
 // Responsive breakpoints
 @mixin mobile {
-  @media (max-width: map-get($breakpoints, 'mobile')) {
+  @media (max-width: map-get($breakpoints, "mobile")) {
     @content;
   }
 }
 
 @mixin tablet {
-  @media (max-width: map-get($breakpoints, 'tablet')) {
+  @media (max-width: map-get($breakpoints, "tablet")) {
     @content;
   }
 }
@@ -22,7 +22,7 @@
   max-width: $max-width;
   margin: 0 auto;
   padding: 0 map-get($spacing, 6);
-  
+
   @include mobile {
     padding: 0 map-get($spacing, 4);
   }
@@ -33,15 +33,15 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: $border-radius;
+  border-radius: $border-radius-base;
   border: none;
   transition: $transition-default;
   cursor: pointer;
-  font-size: map-get($font-sizes, 'sm');
+  font-size: map-get($font-sizes, "sm");
 }
 
 @mixin card {
   background: white;
-  border-radius: $border-radius;
+  border-radius: $border-radius-lg;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-} 
+}

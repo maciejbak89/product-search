@@ -1,6 +1,6 @@
 import type { Product } from "@/types/product";
 
-const SIMULATED_DELAY = 500;
+const SIMULATED_DELAY = Math.floor(Math.random() * 500) + 300;
 
 export const fetchProducts = async (): Promise<Product[]> => {
   await new Promise((resolve) => setTimeout(resolve, SIMULATED_DELAY));
@@ -91,10 +91,4 @@ export const fetchProducts = async (): Promise<Product[]> => {
         "https://images.wired.it/wp-content/uploads/2016/09/28193850/1475077129_Dji-Mavic-Pro-.jpg",
     },
   ];
-};
-
-export const fetchProductById = async (id: number): Promise<Product | null> => {
-  await new Promise((resolve) => setTimeout(resolve, SIMULATED_DELAY));
-  const products = await fetchProducts();
-  return products.find((p) => p.id === id) || null;
 };

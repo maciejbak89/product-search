@@ -10,7 +10,6 @@ h3,
 h4,
 h5,
 h6 {
-  margin-bottom: 1rem;
   font-weight: 700;
   line-height: 1.2;
 }
@@ -31,26 +30,36 @@ h6 {
   font-size: map-get($font-sizes, "lg");
 }
 
-.text-sm {
+.font-xs {
+  font-size: map-get($font-sizes, "xs");
+}
+
+.font-sm {
   font-size: map-get($font-sizes, "sm");
 }
 
-.text-base {
+.font-base {
   font-size: map-get($font-sizes, "base");
 }
 
-.text-lg {
+.font-lg {
   font-size: map-get($font-sizes, "lg");
 }
 
-.text-xl {
+.font-xl {
   font-size: map-get($font-sizes, "xl");
+}
+
+.font-xxl {
+  font-size: map-get($font-sizes, "xxl");
 }
 
 .font-bold {
   font-weight: 700;
 }
-
+.font-medium {
+  font-weight: 500;
+}
 .font-normal {
   font-weight: 400;
 }

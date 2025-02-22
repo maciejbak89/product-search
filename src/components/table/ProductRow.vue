@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { storeToRefs } from "pinia";
 import { useProductStore } from "@/stores/products";
 import type { Product } from "@/types/product";
 import StatusPill from "./StatusPill.vue";
@@ -14,8 +13,8 @@ const props = withDefaults(defineProps<Props>(), {
   mobile: false,
 });
 
-const store = useProductStore();
-const { selectProduct } = store;
+const productStore = useProductStore();
+const { selectProduct } = productStore;
 
 function handleClick() {
   selectProduct(props.product);
@@ -26,36 +25,45 @@ function handleClick() {
   <!-- Mobile card view -->
   <div
     v-if="mobile"
-    class="card p-4 border-bottom"
+    class="card d-flex flex-column justify-center px-4 border-bottom"
     role="button"
     tabindex="0"
     @click="handleClick"
   >
-    <div class="d-flex justify-between align-center mb-3">
-      <StatusPill :status="getStatusFromQuantity(product.quantity)" />
-      <span class="font-lg font-medium">{{ formatPrice(product.total) }}</span>
-    </div>
-
-    <div class="d-flex flex-column gap-1">
-      <h3 class="font-base text-primary">{{ product.product }}</h3>
-      <span class="font-sm text-secondary">ID: {{ product.id }}</span>
-      <span class="font-sm text-secondary">Serial: {{ product.serial }}</span>
-      <span class="font-sm text-secondary"
-        >Quantity: {{ product.quantity }}</span
-      >
+    <div class="d-flex flex-column">
+      <p class="font-sm text-primary">{{ product.product }}</p>
+      <p class="font-xs text-secondary">
+        {{ product.serial }} - Qty: {{ product.quantity }}
+      </p>
     </div>
   </div>
 
   <!-- Desktop table row -->
-  <tr v-else class="table-row" role="row" tabindex="0" @click="handleClick">
-    <td class="table-row__cell">{{ product.id }}</td>
-    <td class="table-row__cell">
+  <tr
+    v-else
+    class="table-row border-bottom"
+    role="row"
+    tabindex="0"
+    @click="handleClick"
+  >
+    <td class="table-row__cell table-row__cell--center font-sm">
+      {{ product.id }}
+    </td>
+    <td class="table-row__cell table-row__cell--center">
       <StatusPill :status="getStatusFromQuantity(product.quantity)" />
     </td>
-    <td class="table-row__cell">{{ product.quantity }}</td>
-    <td class="table-row__cell">{{ product.product }}</td>
-    <!-- <td class="table-row__cell font-sm text-secondary">{{ product.serial }}</td> -->
-    <td class="table-row__cell font-medium">
+    <td class="table-row__cell table-row__cell--center font-sm">
+      {{ product.quantity }}
+    </td>
+    <td class="table-row__cell table-row__cell--left">
+      <div class="font-sm text-primary text-truncate">
+        {{ product.product }}
+      </div>
+      <div class="font-xs text-secondary text-truncate">
+        {{ product.serial }}
+      </div>
+    </td>
+    <td class="table-row__cell table-row__cell--right border-left font-sm">
       {{ formatPrice(product.total) }}
     </td>
   </tr>
@@ -63,8 +71,9 @@ function handleClick() {
 
 <style lang="scss" scoped>
 .table-row {
+  height: 56px;
   cursor: pointer;
-  transition: var(--transition);
+  transition: all var(--transition);
 
   &:hover {
     background-color: var(--color-gray-light);
@@ -76,20 +85,31 @@ function handleClick() {
   }
 
   &__cell {
-    padding: var(--space-4);
-    border-bottom: 1px solid var(--color-border);
-    white-space: nowrap;
+    padding-left: 16px;
+    padding-right: 16px;
 
-    &:first-child {
-      width: 1%;
+    &--left {
+      text-align: left;
     }
+
+    &--right {
+      text-align: right;
+    }
+
+    &--center {
+      text-align: center;
+    }
+  }
+
+  &:last-child {
+    border-bottom: none;
   }
 }
 
 .card {
+  height: 56px;
   cursor: pointer;
-  transition: var(--transition);
-  background-color: var(--color-white);
+  transition: all var(--transition);
 
   &:hover {
     background-color: var(--color-gray-light);
@@ -98,6 +118,10 @@ function handleClick() {
   &:focus-visible {
     outline: 2px solid var(--color-primary);
     outline-offset: -2px;
+  }
+
+  &:last-child {
+    border-bottom: none;
   }
 }
 </style>

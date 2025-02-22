@@ -15,7 +15,7 @@ withDefaults(defineProps<Props>(), {
 <template>
   <button
     :type="type"
-    class="button d-inline-flex align-center justify-center font-sm font-medium rounded"
+    class="button d-inline-flex align-center justify-center font-sm font-medium rounded px-6"
     :class="[`button--${variant}`, { 'w-100': block }]"
   >
     <slot></slot>
@@ -25,7 +25,6 @@ withDefaults(defineProps<Props>(), {
 <style lang="scss" scoped>
 .button {
   height: 40px;
-  padding: 0 var(--space-4);
   transition: var(--transition);
   cursor: pointer;
 
@@ -41,11 +40,12 @@ withDefaults(defineProps<Props>(), {
 
   &--secondary {
     background-color: transparent;
-    border: 1px solid var(--color-border);
     color: var(--color-text-primary);
+    border: none;
 
     &:hover {
-      background-color: var(--color-gray-light);
+      background-color: var(--color-secondary-hover);
+      color: var(--color-text-primary);
     }
   }
 }

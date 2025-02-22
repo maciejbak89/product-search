@@ -9,17 +9,18 @@
   --color-border: #e4e4ef;
   --color-background: #ffffff;
   --color-white: #ffffff;
-  --color-gray-light: #f8f9fa;
+  --color-gray-light: #f6f6fa;
+  --color-skeleton: #e4e4ef;
 
   // Status Colors
-  --color-status-active: #ededfe;
-  --color-status-active-text: #605dec;
-  --color-status-approved: #ebf6eb;
-  --color-status-approved-text: #31aa27;
-  --color-status-pending: #fff4e4;
-  --color-status-pending-text: #e99518;
-  --color-status-inactive: #fff0f0;
-  --color-status-inactive-text: #f93232;
+  --color-status-high: #ebf6eb;
+  --color-status-high-text: #31aa27;
+  --color-status-medium: #ededfe;
+  --color-status-medium-text: #605dec;
+  --color-status-low: #fff4e4;
+  --color-status-low-text: #e99518;
+  --color-status-unavailable: #fff0f0;
+  --color-status-unavailable-text: #f93232;
 
   // Spacing
   --space-1: 4px;
@@ -32,8 +33,9 @@
   --space-10: 40px;
 
   // Other
-  --border-radius: 8px;
-  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --border-radius-base: 4px;
+  --border-radius-lg: 8px;
+  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   --max-width: 1200px;
 }
 
@@ -57,14 +59,14 @@ $colors: (
   "border": #e4e4ef,
   "background": #ffffff,
   "white": #ffffff,
-  "status-active": #ededfe,
-  "status-active-text": #605dec,
-  "status-approved": #ebf6eb,
-  "status-approved-text": #31aa27,
-  "status-pending": #fff4e4,
-  "status-pending-text": #e99518,
-  "status-inactive": #fff0f0,
-  "status-inactive-text": #f93232,
+  "status-high": #ebf6eb,
+  "status-high-text": #31aa27,
+  "status-medium": #ededfe,
+  "status-medium-text": #605dec,
+  "status-low": #fff4e4,
+  "status-low-text": #e99518,
+  "status-unavailable": #fff0f0,
+  "status-unavailable-text": #f93232,
 );
 
 // Spacing
@@ -92,6 +94,7 @@ $font-family:
   "Inter",
   -apple-system,
   sans-serif;
+
 $font-sizes: (
   "xs": 12px,
   "sm": 14px,
@@ -102,6 +105,7 @@ $font-sizes: (
 );
 
 // Other
-$border-radius: 8px;
+$border-radius-base: 4px;
+$border-radius-lg: 8px;
 $transition-default: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 $max-width: 1200px;

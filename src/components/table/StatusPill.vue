@@ -5,22 +5,22 @@ interface Props {
   status: Product["status"];
 }
 
-defineProps<Props>();
+const statusLabels: Record<Props["status"], string> = {
+  high: "High",
+  medium: "Medium",
+  low: "Low",
+  unavailable: "Unavailable",
+};
 
-const statusLabels: Record<Product["status"], string> = {
-  active: "Active",
-  pending: "Pending",
-  inactive: "Inactive",
-} as const;
+defineProps<Props>();
 </script>
 
 <template>
   <span
-    class="status-pill d-inline-flex align-center"
+    class="status-pill font-xs d-inline-flex justify-center align-center"
     :class="`status-pill--${status}`"
     role="status"
   >
-    <span class="status-pill__dot" aria-hidden="true"></span>
     {{ statusLabels[status] }}
   </span>
 </template>
@@ -29,41 +29,27 @@ const statusLabels: Record<Product["status"], string> = {
 .status-pill {
   padding: var(--space-1) var(--space-2);
   border-radius: 16px;
-  font-size: 14px;
-  font-weight: 500;
   gap: var(--space-1);
+  min-width: 84px;
 
-  &__dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
+  &--high {
+    background-color: var(--color-status-high);
+    color: var(--color-status-high-text);
   }
 
-  &--active {
-    background-color: var(--color-status-active);
-    color: var(--color-status-active-text);
-
-    .status-pill__dot {
-      background-color: var(--color-status-active-text);
-    }
+  &--medium {
+    background-color: var(--color-status-medium);
+    color: var(--color-status-medium-text);
   }
 
-  &--pending {
-    background-color: var(--color-status-pending);
-    color: var(--color-status-pending-text);
-
-    .status-pill__dot {
-      background-color: var(--color-status-pending-text);
-    }
+  &--low {
+    background-color: var(--color-status-low);
+    color: var(--color-status-low-text);
   }
 
-  &--inactive {
-    background-color: var(--color-status-inactive);
-    color: var(--color-status-inactive-text);
-
-    .status-pill__dot {
-      background-color: var(--color-status-inactive-text);
-    }
+  &--unavailable {
+    background-color: var(--color-status-unavailable);
+    color: var(--color-status-unavailable-text);
   }
 }
 </style>
