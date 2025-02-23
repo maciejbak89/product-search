@@ -13,18 +13,19 @@ export const useProductStore = defineStore("products", () => {
   const sortKey = ref<SortKey>("");
   const sortDirection = ref<SortDirection>("desc");
   const selectedProduct = ref<Product | null>(null);
-  const dialogOpen = ref(false);
+  const isDialogOpen = ref<boolean>(false);
 
   // Getters
   const filteredAndSortedProducts = computed(() => {
     const filtered = filterProducts(products.value, searchQuery.value);
     return sortProducts(filtered, sortKey.value, sortDirection.value);
   });
+
   const totalProducts = computed(() => products.value.length);
+
   const visibleProducts = computed(
     () => filteredAndSortedProducts.value.length,
   );
-  const isDialogOpen = computed(() => dialogOpen.value);
 
   // Actions
   const loadProducts = async () => {
@@ -65,6 +66,10 @@ export const useProductStore = defineStore("products", () => {
     selectedProduct.value = null;
   };
 
+  const setDialogOpen = (value: boolean) => {
+    isDialogOpen.value = value;
+  };
+
   return {
     products,
     isLoading,
@@ -73,14 +78,15 @@ export const useProductStore = defineStore("products", () => {
     sortKey,
     sortDirection,
     selectedProduct,
+    isDialogOpen,
     filteredAndSortedProducts,
     totalProducts,
     visibleProducts,
-    isDialogOpen,
     loadProducts,
     setSearchQuery,
     setSort,
     selectProduct,
     clearSelectedProduct,
+    setDialogOpen,
   };
 });

@@ -1,5 +1,5 @@
 // Spacing
-@each $space in (0, 1, 2, 3, 4, 5, 6, 8, 10) {
+@each $space in (0, 1, 2, 3, 4, 5, 6, 8, 10, 12, 14, 16, 18, 20) {
   .m-#{$space} {
     margin: var(--space-#{$space});
   }

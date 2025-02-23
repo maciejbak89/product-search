@@ -47,50 +47,54 @@ onUnmounted(() => {
 
 <template>
   <Teleport to="body">
-    <div
-      v-if="modelValue"
-      class="dialog-overlay d-flex justify-center align-center"
-      @click="handleClose"
-    >
-      <div role="dialog" aria-modal="true" class="dialog" @click.stop>
-        <header class="dialog__header d-flex justify-between align-start mb-4">
-          <h2 class="font-xl font-bold pt-2">{{ title }}</h2>
-          <Button
-            variant="icon"
-            class="dialog__close"
-            aria-label="Close dialog"
-            @click="handleClose"
+    <Transition name="fade">
+      <div
+        v-if="modelValue"
+        class="dialog-overlay d-flex justify-center align-center"
+        @click="handleClose"
+      >
+        <div role="dialog" aria-modal="true" class="dialog" @click.stop>
+          <header
+            class="dialog__header d-flex justify-between align-start mb-4"
           >
-            <template #icon>
-              <Icon name="close" aria-hidden="true" />
-            </template>
-          </Button>
-        </header>
+            <h2 class="font-xl font-bold pt-2">{{ title }}</h2>
+            <Button
+              variant="icon"
+              class="dialog__close"
+              aria-label="Close dialog"
+              @click="handleClose"
+            >
+              <template #icon>
+                <Icon name="close" aria-hidden="true" />
+              </template>
+            </Button>
+          </header>
 
-        <div class="dialog__content mb-4">
-          <slot></slot>
+          <div class="dialog__content mb-4">
+            <slot></slot>
+          </div>
+
+          <footer class="dialog__actions d-flex justify-end">
+            <Button
+              v-if="isSecondary"
+              variant="secondary"
+              class="dialog__action-button"
+              @click="handleClose"
+            >
+              {{ secondaryText }}
+            </Button>
+            <Button
+              v-if="isPrimary"
+              variant="primary"
+              class="dialog__action-button"
+              @click="$emit('confirm')"
+            >
+              {{ primaryText }}
+            </Button>
+          </footer>
         </div>
-
-        <footer class="dialog__actions d-flex justify-end">
-          <Button
-            v-if="isSecondary"
-            variant="secondary"
-            class="dialog__action-button"
-            @click="handleClose"
-          >
-            {{ secondaryText }}
-          </Button>
-          <Button
-            v-if="isPrimary"
-            variant="primary"
-            class="dialog__action-button"
-            @click="$emit('confirm')"
-          >
-            {{ primaryText }}
-          </Button>
-        </footer>
       </div>
-    </div>
+    </Transition>
   </Teleport>
 </template>
 

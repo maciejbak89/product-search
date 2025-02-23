@@ -64,8 +64,8 @@ const handleMouseLeave = () => {
               @mouseenter="handleMouseEnter(header.key)"
               @mouseleave="handleMouseLeave"
             >
-              <div class="header-content">
-                <span class="header-label">
+              <div class="header-content d-flex justify-center align-center">
+                <span class="header-label d-flex justify-center align-center">
                   <span>{{ header.label }}</span>
                   <span v-if="header.sortable && header.key === sortKey">
                     <Icon
@@ -120,7 +120,7 @@ const handleMouseLeave = () => {
     </div>
 
     <!-- Mobile table view -->
-    <div class="mobile-view d-md-none">
+    <div class="mobile-view">
       <h2
         class="mobile-view__header d-flex justify-center align-center font-base font-bold text-primary border-bottom"
       >
@@ -193,18 +193,12 @@ table {
 
 .header-content {
   position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   height: 100%;
 }
 
 .header-label {
   text-align: center;
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .icon-placeholder {

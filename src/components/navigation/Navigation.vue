@@ -1,19 +1,20 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import Icon from "@/components/ui/Icon.vue";
-import Search from "@/components/search/Search.vue";
+import Button from "@/components/ui/Button.vue";
+import Search from "@/components/Search/Search.vue";
 
 const isMobileMenuOpen = ref(false);
 
-function toggleMobileMenu() {
+const toggleMobileMenu = () => {
   isMobileMenuOpen.value = !isMobileMenuOpen.value;
-}
+};
 </script>
 
 <template>
-  <header class="bg-white border-bottom" role="banner">
+  <header class="border-bottom" role="banner">
     <!-- Desktop Navigation -->
-    <nav class="nav d-none d-md-flex align-center" aria-label="Main navigation">
+    <nav class="nav align-center px-6 py-4" aria-label="Main navigation">
       <div class="d-flex align-center gap-8">
         <!-- <img src="@/assets/logo.svg" alt="Storm logo" class="nav__logo" /> -->
         <span class="font-bold text-primary">Storm</span>
@@ -22,43 +23,64 @@ function toggleMobileMenu() {
       <Search class="nav__search" />
 
       <div class="nav__actions d-flex align-center gap-4">
-        <button class="nav__action-btn" aria-label="Open settings">
-          <Icon name="settings" />
-        </button>
-        <button class="nav__action-btn" aria-label="View notifications">
-          <Icon name="notifications" />
-        </button>
-        <div class="d-flex align-center gap-2">
+        <Button
+          variant="icon"
+          class="nav__action-btn"
+          aria-label="Open settings"
+        >
+          <template #icon>
+            <Icon name="close" aria-hidden="true" />
+          </template>
+        </Button>
+
+        <Button
+          variant="icon"
+          class="nav__action-btn"
+          aria-label="View notifications"
+        >
+          <template #icon>
+            <Icon name="notifications" aria-hidden="true" />
+          </template>
+        </Button>
+
+        <Button class="nav__action-btn" aria-label="View notifications">
+          <template #icon>
+            <Icon name="user" aria-hidden="true" />
+          </template>
+          Maciej Bak
+        </Button>
+
+        <!-- <div class="d-flex align-center gap-2">
           <Icon name="user" />
-          <span class="font-sm text-primary">Adriana Arias</span>
-        </div>
+          <span class="font-sm text-primary">Maciej Bak</span>
+        </div> -->
       </div>
     </nav>
 
     <!-- Mobile Navigation -->
-    <div class="nav-mobile d-md-none">
+    <!-- <div class="nav-mobile">
       <div class="nav-mobile__header d-flex align-center justify-between p-4">
         <div class="d-flex align-center gap-2">
-          <!-- <img src="@/assets/logo.svg" alt="Storm logo" class="nav__logo" /> -->
+          <img src="@/assets/logo.svg" alt="Storm logo" class="nav__logo" />
           <span class="font-bold text-primary">Storm</span>
         </div>
         <button
           class="hamburger-btn"
-          @click="toggleMobileMenu"
           aria-label="Toggle menu"
           :aria-expanded="isMobileMenuOpen"
+          @click="toggleMobileMenu"
         >
-          <Icon name="menu" />
+          <Icon name="hamburger-menu" />
         </button>
-      </div>
+      </div> -->
 
-      <!-- Mobile Search -->
-      <div class="nav-mobile__search px-4 pb-4">
+    <!-- Mobile Search -->
+    <!-- <div class="nav-mobile__search px-4 pb-4">
         <Search />
-      </div>
+      </div> -->
 
-      <!-- Mobile Menu -->
-      <div v-if="isMobileMenuOpen" class="mobile-menu">
+    <!-- Mobile Menu -->
+    <!-- <div v-if="isMobileMenuOpen" class="mobile-menu">
         <div class="mobile-menu__content">
           <button class="mobile-menu__item d-flex align-center gap-2">
             <Icon name="settings" />
@@ -73,16 +95,20 @@ function toggleMobileMenu() {
             <span class="font-sm text-primary">Adriana Arias</span>
           </div>
         </div>
-      </div>
-    </div>
+      </div> -->
+    <!-- </div> -->
   </header>
 </template>
 
 <style lang="scss" scoped>
 .nav {
-  height: 72px;
-  padding: 0 var(--space-6);
-  justify-content: space-between;
+  height: 76px;
+  display: none;
+
+  @media (min-width: 768px) {
+    display: flex;
+    justify-content: space-between;
+  }
 
   &__logo {
     width: 32px;
@@ -132,6 +158,10 @@ function toggleMobileMenu() {
   bottom: 0;
   background: white;
   z-index: 90;
+
+  @media (min-width: 768px) {
+    display: none;
+  }
 
   &__content {
     padding: var(--space-4);

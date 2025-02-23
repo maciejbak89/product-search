@@ -1,5 +1,6 @@
 import type { Product, SortKey, SortDirection } from "@/types/product";
 
+// Sort products
 export const sortProducts = (
   products: Product[],
   sortKey: SortKey,
@@ -27,6 +28,7 @@ export const sortProducts = (
   });
 };
 
+// Filter products
 export const filterProducts = (
   products: Product[],
   query: string,
@@ -42,6 +44,7 @@ export const filterProducts = (
   );
 };
 
+// Format price
 export const formatPrice = (price: number): string => {
   return new Intl.NumberFormat("en-US", {
     style: "currency",
@@ -49,6 +52,7 @@ export const formatPrice = (price: number): string => {
   }).format(price);
 };
 
+// Get status from quantity
 export const getStatusFromQuantity = (quantity: number): Product["status"] => {
   if (quantity > 100) return "high";
   if (quantity > 50) return "medium";

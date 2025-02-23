@@ -14,11 +14,12 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 const productStore = useProductStore();
-const { selectProduct } = productStore;
+const { selectProduct, setDialogOpen } = productStore;
 
-function handleClick() {
+const handleClick = () => {
   selectProduct(props.product);
-}
+  setDialogOpen(true);
+};
 </script>
 
 <template>

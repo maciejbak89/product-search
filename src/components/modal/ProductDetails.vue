@@ -12,9 +12,13 @@ defineProps<Props>();
 <template>
   <div class="product-details d-flex">
     <img
-      :src="product.image || noImagePlaceholder"
-      :alt="product.product"
+      :src="product?.image || noImagePlaceholder"
+      :alt="
+        product.product ? `Image of ${product.product}` : 'No image available'
+      "
+      aria-label="Product image"
       class="product-details__image"
+      loading="lazy"
       @error="($event.target as HTMLImageElement).src = noImagePlaceholder"
     />
 
@@ -22,14 +26,14 @@ defineProps<Props>();
       <h3 class="font-xs mb-2">Key Features:</h3>
       <ul class="font-xs pl-4 mb-4">
         <li
-          v-for="(feature, index) in product.description.features"
+          v-for="(feature, index) in product?.description.features"
           :key="index"
         >
           {{ feature }}
         </li>
       </ul>
       <p class="font-xs">
-        {{ product.description.description }}
+        {{ product?.description.description }}
       </p>
     </div>
   </div>
@@ -41,13 +45,14 @@ defineProps<Props>();
   gap: var(--space-4);
 
   &__image {
-    width: 50%;
+    width: 252px;
     height: auto;
     object-fit: contain;
+    transition: opacity var(--transition);
   }
 
   &__description {
-    width: 50%;
+    width: 252px;
 
     h3 {
       line-height: 24px;

@@ -7,10 +7,10 @@ const store = useProductStore();
 const { searchQuery } = storeToRefs(store);
 const { setSearchQuery } = store;
 
-function handleSearch(event: Event) {
+const handleSearch = (event: Event) => {
   const value = (event.target as HTMLInputElement).value;
   setSearchQuery(value);
-}
+};
 </script>
 
 <template>
