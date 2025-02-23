@@ -45,10 +45,6 @@ export const useProductStore = defineStore("products", () => {
     }
   };
 
-  const setSearchQuery = (query: string) => {
-    searchQuery.value = query;
-  };
-
   const setSort = (key: SortKey) => {
     if (sortKey.value === key) {
       sortDirection.value = sortDirection.value === "asc" ? "desc" : "asc";
@@ -83,7 +79,6 @@ export const useProductStore = defineStore("products", () => {
     totalProducts,
     visibleProducts,
     loadProducts,
-    setSearchQuery,
     setSort,
     selectProduct,
     clearSelectedProduct,

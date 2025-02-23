@@ -22,8 +22,8 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="d-flex flex-column min-h-100">
-    <main class="flex-1 py-6" role="main">
+  <div class="d-flex flex-column">
+    <main class="flex-1" role="main">
       <div class="container">
         <TableTitle />
         <ProductTable />
@@ -43,7 +43,10 @@ onMounted(() => {
 </template>
 
 <style lang="scss" scoped>
-.min-h-100 {
-  min-height: 100vh;
+main {
+  padding-top: 64px;
+  @media (max-width: 767px) {
+    padding-top: 32px;
+  }
 }
 </style>

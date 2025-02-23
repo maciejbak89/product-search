@@ -3,7 +3,16 @@ import Navigation from "@/components/navigation/Navigation.vue";
 </script>
 
 <template>
-  <Navigation />
-
-  <router-view></router-view>
+  <div class="app-wrapper">
+    <Navigation />
+    <router-view></router-view>
+  </div>
 </template>
+
+<style lang="scss" scoped>
+.app-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+</style>

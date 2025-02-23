@@ -106,7 +106,10 @@ onUnmounted(() => {
   right: 0;
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.4);
-  z-index: 50;
+  z-index: 1000;
+  @media (max-width: 768px) {
+    top: 160px;
+  }
 }
 
 .dialog {

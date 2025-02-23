@@ -1,184 +1,334 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, onMounted, onUnmounted } from "vue";
+import { useRoute } from "vue-router";
+import Logo from "@/assets/images/logo.svg";
 import Icon from "@/components/ui/Icon.vue";
 import Button from "@/components/ui/Button.vue";
 import Search from "@/components/Search/Search.vue";
 
+const route = useRoute();
+
 const isMobileMenuOpen = ref(false);
 
-const toggleMobileMenu = () => {
+const toggleMobileMenu = (e?: MouseEvent) => {
+  if (e) e.stopPropagation();
   isMobileMenuOpen.value = !isMobileMenuOpen.value;
+  // Prevent body scroll when menu is open
+  document.body.style.overflow = isMobileMenuOpen.value ? "hidden" : "";
 };
+
+const handleEscape = (e: KeyboardEvent) => {
+  if (e.key === "Escape" && isMobileMenuOpen.value) {
+    toggleMobileMenu();
+  }
+};
+
+const handleClickOutside = (e: MouseEvent) => {
+  if (
+    isMobileMenuOpen.value &&
+    !(e.target as Element).closest(".mobile-menu")
+  ) {
+    toggleMobileMenu();
+  }
+};
+
+onMounted(() => {
+  window.addEventListener("keydown", handleEscape);
+  document.addEventListener("click", handleClickOutside);
+});
+
+onUnmounted(() => {
+  window.removeEventListener("keydown", handleEscape);
+  document.removeEventListener("click", handleClickOutside);
+});
 </script>
 
 <template>
-  <header class="border-bottom" role="banner">
+  <header role="banner" class="header">
     <!-- Desktop Navigation -->
-    <nav class="nav align-center px-6 py-4" aria-label="Main navigation">
-      <div class="d-flex align-center gap-8">
-        <!-- <img src="@/assets/logo.svg" alt="Storm logo" class="nav__logo" /> -->
-        <span class="font-bold text-primary">Storm</span>
+    <nav class="nav container" aria-label="Main navigation">
+      <div class="nav__logo">
+        <router-link to="/" aria-label="Go to Home">
+          <div class="d-flex align-center">
+            <Logo aria-hidden="true" />
+          </div>
+        </router-link>
       </div>
 
-      <Search class="nav__search" />
+      <div class="nav__content d-flex justify-end align-center">
+        <Search v-if="route.name !== 'Not Found'" class="nav__search" />
 
-      <div class="nav__actions d-flex align-center gap-4">
+        <div class="nav__actions d-flex align-center">
+          <Button
+            variant="icon"
+            class="nav__icon-btn"
+            aria-label="Open settings"
+          >
+            <template #icon>
+              <Icon name="settings" aria-hidden="true" />
+            </template>
+          </Button>
+
+          <Button
+            variant="icon"
+            class="nav__icon-btn"
+            aria-label="View notifications"
+          >
+            <template #icon>
+              <Icon name="notifications" aria-hidden="true" />
+            </template>
+          </Button>
+
+          <Button
+            variant="secondary"
+            class="nav__user-btn"
+            aria-label="View profile"
+          >
+            <Icon name="user" aria-hidden="true" />
+            <span class="font-sm ml-2">Maciej Bak</span>
+          </Button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Mobile Navigation -->
+    <div class="mobile-nav">
+      <div class="mobile-top-bar">
+        <router-link to="/" aria-label="Go to Home">
+          <div class="d-flex align-center">
+            <Logo aria-hidden="true" />
+          </div>
+        </router-link>
+
         <Button
           variant="icon"
-          class="nav__action-btn"
-          aria-label="Open settings"
+          class="hamburger-btn"
+          :aria-expanded="isMobileMenuOpen"
+          aria-controls="mobile-menu"
+          aria-label="Toggle navigation menu"
+          @click="(e: MouseEvent | undefined) => toggleMobileMenu(e)"
+        >
+          <template #icon>
+            <Icon name="hamburger-menu" aria-hidden="true" />
+          </template>
+        </Button>
+      </div>
+
+      <div class="mobile-search">
+        <Search v-if="route.name !== 'Not Found'" />
+      </div>
+
+      <!-- Mobile Menu Side Panel -->
+      <div
+        id="mobile-menu"
+        class="mobile-menu"
+        :class="{ 'mobile-menu--open': isMobileMenuOpen }"
+        role="navigation"
+        aria-label="Mobile navigation"
+      >
+        <Button
+          variant="icon"
+          class="mobile-menu__close"
+          aria-label="Close mobile menu"
+          @click="toggleMobileMenu"
         >
           <template #icon>
             <Icon name="close" aria-hidden="true" />
           </template>
         </Button>
-
-        <Button
-          variant="icon"
-          class="nav__action-btn"
-          aria-label="View notifications"
-        >
-          <template #icon>
-            <Icon name="notifications" aria-hidden="true" />
-          </template>
-        </Button>
-
-        <Button class="nav__action-btn" aria-label="View notifications">
-          <template #icon>
-            <Icon name="user" aria-hidden="true" />
-          </template>
-          Maciej Bak
-        </Button>
-
-        <!-- <div class="d-flex align-center gap-2">
-          <Icon name="user" />
-          <span class="font-sm text-primary">Maciej Bak</span>
-        </div> -->
-      </div>
-    </nav>
-
-    <!-- Mobile Navigation -->
-    <!-- <div class="nav-mobile">
-      <div class="nav-mobile__header d-flex align-center justify-between p-4">
-        <div class="d-flex align-center gap-2">
-          <img src="@/assets/logo.svg" alt="Storm logo" class="nav__logo" />
-          <span class="font-bold text-primary">Storm</span>
-        </div>
-        <button
-          class="hamburger-btn"
-          aria-label="Toggle menu"
-          :aria-expanded="isMobileMenuOpen"
-          @click="toggleMobileMenu"
-        >
-          <Icon name="hamburger-menu" />
-        </button>
-      </div> -->
-
-    <!-- Mobile Search -->
-    <!-- <div class="nav-mobile__search px-4 pb-4">
-        <Search />
-      </div> -->
-
-    <!-- Mobile Menu -->
-    <!-- <div v-if="isMobileMenuOpen" class="mobile-menu">
         <div class="mobile-menu__content">
-          <button class="mobile-menu__item d-flex align-center gap-2">
-            <Icon name="settings" />
-            <span>Settings</span>
-          </button>
-          <button class="mobile-menu__item d-flex align-center gap-2">
-            <Icon name="notifications" />
-            <span>Notifications</span>
-          </button>
-          <div class="mobile-menu__item d-flex align-center gap-2">
-            <Icon name="user" />
-            <span class="font-sm text-primary">Adriana Arias</span>
-          </div>
+          <Button
+            variant="secondary"
+            class="mobile-menu__item"
+            aria-label="View settings"
+            @click="toggleMobileMenu"
+          >
+            <Icon name="settings" aria-hidden="true" />
+            <span class="ml-2">Settings</span>
+          </Button>
+
+          <Button
+            variant="secondary"
+            class="mobile-menu__item"
+            aria-label="View notifications"
+            @click="toggleMobileMenu"
+          >
+            <Icon name="notifications" aria-hidden="true" />
+            <span class="ml-2">Notifications</span>
+          </Button>
+
+          <Button
+            variant="secondary"
+            class="mobile-menu__item"
+            aria-label="View profile"
+            @click="toggleMobileMenu"
+          >
+            <Icon name="user" aria-hidden="true" />
+            <span class="ml-2">Maciej Bak</span>
+          </Button>
         </div>
-      </div> -->
-    <!-- </div> -->
+      </div>
+    </div>
   </header>
 </template>
 
 <style lang="scss" scoped>
+.header {
+  position: sticky;
+  background-color: var(--color-white);
+  top: 0;
+  z-index: 100;
+}
+
+// Desktop Navigation
 .nav {
-  height: 76px;
   display: none;
 
   @media (min-width: 768px) {
+    height: 80px;
     display: flex;
-    justify-content: space-between;
+    align-items: center;
+    padding: 0 var(--space-6);
   }
 
   &__logo {
-    width: 32px;
-    height: 32px;
+    margin-right: var(--space-8);
+  }
+
+  &__content {
+    flex: 1;
   }
 
   &__search {
-    flex: 1;
-    max-width: 600px;
-    margin: 0 var(--space-8);
+    max-width: 360px;
+    width: 100%;
+    margin-right: var(--space-8);
   }
 
-  &__action-btn {
-    width: 40px;
-    height: 40px;
-    border: none;
-    background: transparent;
-    border-radius: var(--border-radius);
-    cursor: pointer;
-    color: var(--color-text-secondary);
-    transition: var(--transition);
+  &__actions {
+    gap: var(--space-2);
+  }
+
+  &__icon-btn {
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    min-width: 44px;
+  }
+
+  &__user-btn {
+    height: 44px;
+    min-width: 121px;
+    background-color: transparent;
+    color: var(--color-primary);
+    padding: 0 var(--space-3);
 
     &:hover {
-      background-color: var(--color-gray-light);
+      color: var(--color-primary) !important;
     }
   }
 }
 
+// Mobile Navigation
+.mobile-nav {
+  display: block;
+
+  @media (min-width: 768px) {
+    display: none;
+  }
+}
+
+.mobile-top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-4) var(--space-6);
+  height: 80px;
+}
+
+.mobile-search {
+  padding: 0 var(--space-4) var(--space-4);
+}
+
 .hamburger-btn {
-  width: 40px;
-  height: 40px;
-  border: none;
-  background: transparent;
-  border-radius: var(--border-radius);
+  width: 44px;
+  min-width: 44px;
+  height: 44px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--color-text-secondary);
+  padding: 0;
+
+  &:hover {
+    background-color: var(--color-gray-light);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
 }
 
 .mobile-menu {
+  width: 300px;
   position: fixed;
-  top: 128px; // Height of nav + search
-  left: 0;
+  top: 0;
   right: 0;
   bottom: 0;
   background: white;
-  z-index: 90;
+  z-index: 1010;
+  transform: translateX(100%);
+  transition: transform var(--transition);
+  border-left: 1px solid var(--color-border);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 
   @media (min-width: 768px) {
     display: none;
   }
 
+  &--open {
+    transform: translateX(0);
+  }
+
+  &__close {
+    position: absolute;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    min-width: 44px;
+    top: var(--space-4);
+    left: var(--space-4);
+  }
+
   &__content {
-    padding: var(--space-4);
+    padding-top: 80px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
   }
 
   &__item {
     width: 100%;
-    padding: var(--space-4);
+    height: 56px;
     border: none;
     background: transparent;
-    text-align: left;
     cursor: pointer;
     color: var(--color-text-primary);
     transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: flex-start !important;
 
     &:hover {
       background-color: var(--color-gray-light);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--color-primary);
+      outline-offset: -2px;
     }
   }
 }

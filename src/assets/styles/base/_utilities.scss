@@ -127,9 +127,6 @@
 .h-100 {
   height: 100%;
 }
-.max-w-600 {
-  max-width: 600px;
-}
 
 // Text
 .text-left {
@@ -203,7 +200,11 @@ $font-sizes: (
 .container {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 0 var(--space-4);
+  padding: 0 var(--space-6);
+
+  @media (max-width: 767px) {
+    padding: 0 var(--space-4);
+  }
 }
 
 // Transitions

@@ -2,7 +2,14 @@
 import { ref, onMounted } from "vue";
 
 interface Props {
-  name: "settings" | "notifications" | "search" | "close" | "sort";
+  name:
+    | "settings"
+    | "notifications"
+    | "search"
+    | "close"
+    | "sort"
+    | "hamburger-menu"
+    | "user";
 }
 
 const props = defineProps<Props>();
@@ -30,6 +37,6 @@ onMounted(async () => {
 }
 
 .icon :deep(path) {
-  transition: stroke var(--transition);
+  transition: all var(--transition);
 }
 </style>

@@ -77,6 +77,7 @@ withDefaults(defineProps<Props>(), {
     width: 40px;
     height: 40px;
     flex-shrink: 0;
+    padding: 0;
   }
 
   &:disabled {
