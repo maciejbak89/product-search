@@ -57,7 +57,7 @@ src/
 ├── stores/         # Pinia store management  
 ├── types/          # TypeScript types  
 ├── utils/          # Utility functions  
-└── views/          # Page components  
+├── views/          # Page components  
 ├── App.vue         # Main App component  
 └── main.ts         # Entry point for the application  
 
