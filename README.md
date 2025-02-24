@@ -49,15 +49,15 @@ npm run dev
 
 ## Project Structure
 
-The project is organized into the following directories:
+src/  
+├── assets/         # Static assets (icons, images, styles)  
+├── components/     # Reusable Vue components  
+├── router/         # Vue router configuration  
+├── services/       # Services (API calls)  
+├── stores/         # Pinia store management  
+├── types/          # TypeScript types  
+├── utils/          # Utility functions  
+└── views/          # Page components  
+├── App.vue         # Main App component  
+└── main.ts         # Entry point for the application  
 
-├── assets/ # Static assets (icons, images, styles)
-├── components/ # Reusable components
-├── router/ # Router configuration
-├── services/ # Services (API calls)
-├── stores/ # State management
-├── types/ # TypeScript types
-├── utils/ # Utility functions
-├── views/ # Views (pages)
-├── App.vue # Main App component
-├── main.js # Entry point for the application
