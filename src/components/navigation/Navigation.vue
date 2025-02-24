@@ -245,6 +245,10 @@ onUnmounted(() => {
   align-items: center;
   padding: var(--space-4) var(--space-6);
   height: 80px;
+
+  @media (max-width: 768px) {
+    padding: var(--space-4) var(--space-4);
+  }
 }
 
 .mobile-search {
